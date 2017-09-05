@@ -68,6 +68,7 @@ After spark-shell starts, import and use Verdict as follows::
 
 The return value of :code:`VerdictSparkHiveContext#sql()` is a Spark's DataFrame class; thus, any methods that work on Spark's DataFrame work on Verdict's answer seamlessly.
 
+.. _verdict-on-pyspark:
 
 Verdict-on-PySpark
 ***********************

@@ -11,6 +11,7 @@ Verdict Documentation
    :caption: Contents:
 
    start
+   using
    queries
    configuration
    apidoc
