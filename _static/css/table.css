@@ -1,0 +1,10 @@
+.config-table {
+    table-layout: fixed;
+    width: 690px;
+}
+
+.config-table > th, td {
+    width: 100%;
+    white-space: normal !important;
+    word-wrap: break-word;
+}

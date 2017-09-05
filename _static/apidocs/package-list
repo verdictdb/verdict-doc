@@ -1,0 +1,12 @@
+edu.umich.verdict
+edu.umich.verdict.datatypes
+edu.umich.verdict.dbms
+edu.umich.verdict.exceptions
+edu.umich.verdict.jdbc
+edu.umich.verdict.parser
+edu.umich.verdict.query
+edu.umich.verdict.relation
+edu.umich.verdict.relation.condition
+edu.umich.verdict.relation.expr
+edu.umich.verdict.util
+sqlline
