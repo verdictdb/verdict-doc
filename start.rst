@@ -156,7 +156,23 @@ After :code:`veeline` launches, you can issue regular SQL queries as follows::
 Verdict-on-Redshift
 ***********************
 
-This is under development at the moment.
+Type the following command in terminal to launch :code:`veeline` that connects to Hive::
+
+    $ veeline/bin/veeline -h "redshift://hostname:port/schema;key1=value1;key2=value2;..." -u username -p password
+
+
+Note that parameters are delimited using semicolons (:code:`;`). The connection string is quoted since the semicolons have special meaning in bash. The user name and password can be passed in the connection string as parameters, too.
+
+After :code:`veeline` launches, you can issue regular SQL queries as follows::
+
+    verdict:PostgreSQL> show databases;
+
+    // Creates samples for the table. This step needs to be done only once for the table.
+    verdict:PostgreSQL> create sample of database_name.table_name;
+
+    verdict:PostgreSQL> select count(*) from database_name.table_name;
+
+    verdict:PostgreSQL> !quit
 
 
 Notes on using :code:`veeline`
