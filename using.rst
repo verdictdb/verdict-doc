@@ -135,3 +135,15 @@ In Hue
 --------------------------------------
 
 Hue supports custom JDBC connections. Please see `this page <http://gethue.com/custom-sql-query-editors/>`_ for instructions.
+
+In Google Cloud Dataproc
+--------------------------------------
+You can use Verdict in Spark running on Google Cloud Dataproc by following a similar approach as just in Spark. First use gcloud command to SSH into Cloud Dataproc cluster master node, in which you should have Verdict's core jar file saved.  Now you can launch :code:`spark-shell` with core jar file specified :code:`spark-shell --jars target/verdict-core-0.3.0-snapshot-jar-with-dependencies.jar`. Then you can import Verdict and run queries as usual::
+
+  import edu.umich.verdict.VerdictSparkHiveContext
+
+  val vc = new VerdictSparkHiveContext(sc)
+  vc.sql("show databases").show(false)
+  df = vc.sql("select count(*) from instacart.orders")
+  df.show(false)
+One thing to notice is that in order for Spark 1.6 to work on Cloud Dataproc, you need to select image version to be 1.0 when creating the cluster(default is 1.2, which supports Spark 2.2).
