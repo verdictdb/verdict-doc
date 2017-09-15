@@ -22,6 +22,8 @@ Verdict ships with a JDBC driver. Using the driver, you can use Verdict on top o
    * Hive:   :code:`jdbc:verdict:hive2://host:port/default_database;key1=value1;key2=value2;...`
 
    * Impala: :code:`jdbc:verdict:impala://host:port/default_database;key1=value1;key2=value2;...`
+   
+   * Redshift: :code:`jdbc:verdict:redshift://endpoint:port/database;key1=value1;key2=value2;...`
 
 To enable the Kerberos authentication, add :code:`principal=user/host@domain` pair in the key-value pairs of the JDBC connection string. You can also pass Verdict configuration options in key-value pairs. For example, to change Verdict's log level to :code:`DEBUG`, add :code:`verdict.loglevel=debug` in the key-value pairs. See :doc:`configuration` for more configuration options for Verdict.
 
