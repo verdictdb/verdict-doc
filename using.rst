@@ -6,7 +6,7 @@ Using Verdict
 In terminal
 -------------------
 
-Please see our :doc:`start`. for the instructions on connecting to Verdict in terminal. The page includes starting Verdict on top of Apache Hive, Apache Impala, and Apache Spark (and PySpark) in terminal.
+Please see our :doc:`start`. for the instructions on connecting to Verdict in terminal. The page includes starting Verdict on top of Apache Hive, Apache Impala, Amazon Redshift, and Apache Spark (and PySpark) in terminal.
 
 .. _jdbc-connections:
 
