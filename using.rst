@@ -13,7 +13,7 @@ Please see our :doc:`start`. for the instructions on connecting to Verdict in te
 JDBC in Java/Python applications
 --------------------------------------
 
-Verdict ships with a JDBC driver. Using the driver, you can use Verdict on top of your existing JDBC-supported database systems. Currently, Verdict supports the JDBC connections to Apache Hive and Apache Impala. Contact us if you want to use Verdict on other database systems. We need to add a small driver (due to non-standard SQL features used by different databases).
+Verdict ships with a JDBC driver. Using the driver, you can use Verdict on top of your existing JDBC-supported database systems. Currently, Verdict supports the JDBC connections to Apache Hive, Apache Impala, and Amazon Redshift. Contact us if you want to use Verdict on other database systems. We need to add a small driver (due to non-standard SQL features used by different databases).
 
 1. Class name for Verdict's JDBC driver: :code:`edu.umich.verdict.jdbc.Driver`
 
