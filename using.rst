@@ -114,7 +114,8 @@ Under **dependencies**, add the (preferably absolute) paths to all JDBC drivers 
 In Jupyter
 --------------------------------------
 
-### On PySpark
+On PySpark
+^^^^^^^^^^^^^^^^^^^^^
 
 You can use Verdict in Jupyter (that connects to PySpark) by following the similar approach as in :ref:`verdict-on-pyspark`. In other words, simply include the path to the Verdict's core jar file as a Driver's Java class path when starting a Jupyter notebook server::
 
@@ -126,7 +127,8 @@ You can use Verdict in Jupyter (that connects to PySpark) by following the simil
 The above command will start the Jupyter server in which you can import PySpark modules.
 
 
-### On Hive, Impala
+On Hive, Impala, Amazon Redshift
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can connect to Verdict on any database that support JDBC connections (including Hive, Impala) as in :ref:`python-example`.
 
@@ -146,4 +148,4 @@ You can use Verdict in Spark running on Google Cloud Dataproc by following a sim
   vc.sql("show databases").show(false)
   df = vc.sql("select count(*) from instacart.orders")
   df.show(false)
-One thing to notice is that in order for Spark 1.6 to work on Cloud Dataproc, you need to select image version to be 1.0 when creating the cluster(default is 1.2, which supports Spark 2.2).
+One thing to notice is that in order for Spark 1.6 to work on Cloud Dataproc, you need to select image version to be 1.0 when creating the cluster (default is 1.2, which supports Spark 2.2).
