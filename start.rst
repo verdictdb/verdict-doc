@@ -1,5 +1,5 @@
 
-Quick Start Guide
+Quick Start
 =====================
 
 Verdict can run on top of `Apache Hive <https://hive.apache.org/>`_, `Apache Impala <https://impala.incubator.apache.org>`_, and `Apache Spark <https://spark.apache.org/>`_, and `Amazon Redshift <https://aws.amazon.com/redshift/>`_. We are adding drivers for other database systems, such as Google BigQuery, Google Dataproc, Teradata, etc.
@@ -104,7 +104,14 @@ The return value of :code:`VerdictHiveContext#sql()` is a pyspark's DataFrame cl
 On Apache Impala, Apache Hive, Amazon Redshift
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will use our command line interface (which is called :code:`veeline`) for connecting to those databases. You can programmatically connect to Verdict using the standard JDBC interface, too. See see `this page <http://verdictdb.org>`_ for the instructions for a JDBC connection.
+We will use our command line interface (which is called :code:`veeline`) for connecting to those databases. You can also programmatically connect to Verdict (see :ref:`jdbc-connections`).
+
+
+Prerequsites for `veeline`
+**********************************************
+
+:code:`veeline` uses the JDBC drivers stored in the :code:`libs` folder for making a connection to the database Verdict works with. Therefore, to make :code:`veeline` able to connect to your database, you must store the :code:`jar` files required to make a connection to your database. By default, our code ships with the Cloudera's Impala and Hive JDBC drivers, and Redshift JDBC drivers. However, if these drivers are not compatible with your environment, you should put the compatible JDBC drivers in the `libs` folder in place of existing ones. We plan to automate this process in the future.
+
 
 Verdict-on-Impala
 ***********************
@@ -165,14 +172,17 @@ Note that parameters are delimited using semicolons (:code:`;`). The connection 
 
 After :code:`veeline` launches, you can issue regular SQL queries as follows::
 
+    // In Redshift, this displays the schemas in the database to which you are connected
     verdict:PostgreSQL> show databases;
 
     // Creates samples for the table. This step needs to be done only once for the table.
-    verdict:PostgreSQL> create sample of database_name.table_name;
+    verdict:PostgreSQL> create sample of schema_name.table_name;
 
-    verdict:PostgreSQL> select count(*) from database_name.table_name;
+    verdict:PostgreSQL> select count(*) from schema_name.table_name;
 
     verdict:PostgreSQL> !quit
+    
+The `search path <http://docs.aws.amazon.com/redshift/latest/dg/r_search_path.html>`_ can be set by :code:`use schema_name;` statement. Currently, only a single schema name can be set for the search path using the :code:`use` statement.
 
 
 Notes on using :code:`veeline`
