@@ -328,25 +328,25 @@ Dropping samples
 ---------------------
 
 
-(delete | drop) [XX%] sample of [database-name.]table-name;
+(delete | drop) [XX%] samples of [database-name.]table-name;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Drop all the samples created for the specified table. The sampling ratio is 1% is not specified explicitly.
 
 
-(delete | drop) [XX%] uniform sample of [database-name.]table-name;
+(delete | drop) [XX%] uniform samples of [database-name.]table-name;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Drop the uniform random sample created for the specified table. The sampling ratio is 1% is not specified explicitly.
 
 
-(delete | drop) [XX%] stratified sample of [database-name.]table-name on column-name;
+(delete | drop) [XX%] stratified samples of [database-name.]table-name on column-name;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Drop the stratified sample created for the specified table. The sampling ratio is 1% is not specified explicitly.
 
 
-(delete | drop) [XX%] universe sample of [database-name.]table-name on column-name;
+(delete | drop) [XX%] universe samples of [database-name.]table-name on column-name;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Drop the universe sample created for the specified table. The sampling ratio is 1% is not specified explicitly.
