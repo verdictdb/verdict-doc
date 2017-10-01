@@ -102,7 +102,8 @@ For Spark 1.6.0, you can import Verdict and run queries as follows::
   df = vc.sql("select count(*) from instacart.orders")   // returns a Spark DataFrame
   df.show(false)
 
-For Spark 2.0, it is slightly different in importing Verdict and running queries:
+For Spark 2.0, it is slightly different in importing Verdict and running queries::
+
   import edu.umich.verdict.VerdictSpark2Context
 
   val vc = new VerdictSpark2Context(sc)               // sc: SparkContext
