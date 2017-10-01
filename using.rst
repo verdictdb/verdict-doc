@@ -22,7 +22,7 @@ Verdict ships with a JDBC driver. Using the driver, you can use Verdict on top o
    * Hive:   :code:`jdbc:verdict:hive2://host:port/default_database;key1=value1;key2=value2;...`
 
    * Impala: :code:`jdbc:verdict:impala://host:port/default_database;key1=value1;key2=value2;...`
-   
+
    * Redshift: :code:`jdbc:verdict:redshift://endpoint:port/database;key1=value1;key2=value2;...`
 
 To enable the Kerberos authentication, add :code:`principal=user/host@domain` pair in the key-value pairs of the JDBC connection string. You can also pass Verdict configuration options in key-value pairs. For example, to change Verdict's log level to :code:`DEBUG`, add :code:`verdict.loglevel=debug` in the key-value pairs. See :doc:`configuration` for more configuration options for Verdict.
@@ -93,11 +93,19 @@ On Spark
 
 Zeppelin includes the Spark interpreter by default. For Verdict to work in Spark interpreter, it is enough to include Verdict's core jar file as a dependency. First, go to Zeppelin's interpreter setting, and find the interpreter for Spark. Click the edit button and add the path to Verdict's core jar file (which is created in the :code:`target` directory when Verdict's source code is built) as a dependency.
 
-Now you can import Verdict and run queries as follows::
+For Spark 1.6.0, you can import Verdict and run queries as follows::
 
   import edu.umich.verdict.VerdictSparkHiveContext
 
   val vc = new VerdictSparkHiveContext(sc)               // sc: SparkContext
+  vc.sql("show databases").show(false)
+  df = vc.sql("select count(*) from instacart.orders")   // returns a Spark DataFrame
+  df.show(false)
+
+For Spark 2.0, it is slightly different in importing Verdict and running queries:
+  import edu.umich.verdict.VerdictSpark2Context
+
+  val vc = new VerdictSpark2Context(sc)               // sc: SparkContext
   vc.sql("show databases").show(false)
   df = vc.sql("select count(*) from instacart.orders")   // returns a Spark DataFrame
   df.show(false)
