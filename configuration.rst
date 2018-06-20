@@ -20,7 +20,7 @@ Changing Verdict configuration
 
    * **Hive, Impala**: You can pass the parameters in the JDBC connection string. For example::
    
-      $ veeline/bin/veeline -h "impala://host:port/default;verdict.loglevel=warn"
+      $ /bin/verdict-shell -h "impala://host:port/default;verdict.loglevel=warn"
    
    will set the Verdict's log level to :code:`warn`.
 
