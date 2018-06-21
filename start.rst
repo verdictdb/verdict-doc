@@ -2,7 +2,9 @@
 Quick Start
 =====================
 
-Verdict can run on top of `Apache Hive <https://hive.apache.org/>`_, `Apache Impala <https://impala.incubator.apache.org>`_, and `Apache Spark <https://spark.apache.org/>`_, and `Amazon Redshift <https://aws.amazon.com/redshift/>`_. We are adding drivers for other database systems, such as Google BigQuery, Google Dataproc, Teradata, etc.
+Verdict can run on top of `Apache Hive <https://hive.apache.org/>`_, `Apache Impala <https://impala.incubator.apache.org>`_,
+and `Apache Spark <https://spark.apache.org/>`_, and `Amazon Redshift <https://aws.amazon.com/redshift/>`_.
+We are adding drivers for other database systems, such as Google BigQuery, Google Dataproc, Teradata, etc.
 
 Using Verdict is easy. Following this guide, you can finish setup in five minutes if you have any of those supported systems ready.
 
@@ -12,7 +14,7 @@ Downloading and Building Verdict
 
 Downloading and building Verdict requires only a couple steps. Building Verdict does not require any :code:`sudo` access.
 
-1. **Download** and unzip `the latest release (version 0.3.0) <https://github.com/mozafari/verdict/releases/download/v0.3.0/verdict-0.3.0.zip>`_.
+1. **Download** and unzip `the latest release (version 0.4.8) <https://github.com/mozafari/verdictdb/archive/v0.4.8.zip>`_.
 
 1. **Type** :code:`mvn package` in the unzipped directory. The command will download all the dependencies and compile Verdict's code. The command will create three :code:`jar` files in the :code:`target` directory.
 
@@ -21,7 +23,10 @@ This is all!
 More details
 ^^^^^^^^^^^^^^^^
 
-Verdict is tested on Oracle JDK 1.7 or above, but it should work with open JDK, too. :code:`mvn` is the command for the `Apache Maven <https://maven.apache.org/>`_ package manager. If you do not have the Maven, you will have to install it. The official page for the Maven installation is `this <https://maven.apache.org/install.html>`_.
+Verdict is tested on Oracle JDK 1.7 or above, but it should work with open JDK, too.
+:code:`mvn` is the command for the `Apache Maven <https://maven.apache.org/>`_ package manager.
+If you do not have the Maven, you will have to install it.
+The official page for the Maven installation is `this <https://maven.apache.org/install.html>`_.
 
 Verdict is currently tested with the systems included in a Cloudera distribution (`CDH 5.11 <https://www.cloudera.com/documentation/enterprise/release-notes/topics/cdh_rn_new_in_cdh_511.html>`_). However, Verdict should work with other versions as well. Please let us know if Verdict is incompatible with your environment.
 
@@ -47,7 +52,7 @@ Verdict-on-Spark
 
 You can start :code:`spark-shell` with Verdict as follows::
 
-    $ spark-shell --jars target/verdict-core-0.3.0-jar-with-dependencies.jar
+    $ spark-shell --jars verdictdb-0.4.8.jar
 
 After spark-shell starts, import and use Verdict as follows::
 
@@ -77,9 +82,10 @@ You can start :code:`pyspark` shell with Verdict as follows::
 
     $ export PYTHONPATH=$(pwd)/python:$PYTHONPATH
 
-    $ pyspark --driver-class-path target/verdict-core-0.3.0-jar-with-dependencies.jar
+    $ pyspark --driver-class-path verdictdb-0.4.8.jar
 
-**Limitation**: Note that, in order for the :code:`--driver-class-path` option to work, the jar file (i.e., :code:`target/verdict-core-0.3.0-jar-with-dependencies.jar`) must be placed in the Spark's driver node. Verdict will support :code:`--jars` option shortly.
+**Limitation**: Note that, in order for the :code:`--driver-class-path` option to work,
+the jar file (i.e., :code:`verdictdb-0.4.8.jar`) must be placed in the Spark's driver node. Verdict will support :code:`--jars` option shortly.
 
 After pyspark shell starts, import and use Verdict as follows::
 
@@ -104,13 +110,16 @@ The return value of :code:`VerdictHiveContext#sql()` is a pyspark's DataFrame cl
 On Apache Impala, Apache Hive, Amazon Redshift
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will use our command line interface (which is called :code:`veeline`) for connecting to those databases. You can also programmatically connect to Verdict (see :ref:`jdbc-connections`).
+We will use our command line interface (which is called :code:`verdict-shell`) for connecting to those databases.
+You can also programmatically connect to Verdict (see :ref:`jdbc-connections`).
 
 
-Prerequsites for `veeline`
+Prerequsites for `verdict-shell`
 **********************************************
 
-:code:`veeline` uses the JDBC drivers stored in the :code:`libs` folder for making a connection to the database Verdict works with. Therefore, to make :code:`veeline` able to connect to your database, you must store the :code:`jar` files required to make a connection to your database. By default, our code ships with the Cloudera's Impala and Hive JDBC drivers, and Redshift JDBC drivers. However, if these drivers are not compatible with your environment, you should put the compatible JDBC drivers in the `libs` folder in place of existing ones. We plan to automate this process in the future.
+:code:`verdict-shell` uses the JDBC drivers stored in the :code:`jdbc_jars` folder for making a connection to the database Verdict works with.
+Therefore, to make :code:`verdict-shell` able to connect to your database, you must store the :code:`jar` files required to make a connection to your database.
+By default, our code does **NOT** ship with any third-party JDBC drivers.
 
 
 Verdict-on-Impala
@@ -118,13 +127,13 @@ Verdict-on-Impala
 
 Type the following command in terminal to launch :code:`veeline` that connects to Impala::
 
-    $ veeline/bin/veeline -h "impala://hostname:port/schema;key1=value1;key2=value2;..." -u username -p password
+    $ /bin/verdict-shell -h "impala://hostname:port/schema;key1=value1;key2=value2;..." -u username -p password
 
 Note that parameters are delimited using semicolons (:code:`;`). The connection string is quoted since the semicolons have special meaning in bash. The user name and password can be passed in the connection string as parameters, too.
 
 Verdict supports the Kerberos connection. For this, add :code:`principal=user/host@domain` as one of those key-values pairs.
 
-After :code:`veeline` launches, you can issue regular SQL queries as follows::
+After :code:`verdict-shell` launches, you can issue regular SQL queries as follows::
 
     verdict:impala> show databases;
 
@@ -139,16 +148,19 @@ After :code:`veeline` launches, you can issue regular SQL queries as follows::
 Verdict-on-Hive
 ***********************
 
-Type the following command in terminal to launch :code:`veeline` that connects to Hive::
+Type the following command in terminal to launch :code:`verdict-shell` that connects to Hive::
 
-    $ veeline/bin/veeline -h "hive2://hostname:port/schema;key1=value1;key2=value2;..." -u username -p password
+    $ /bin/verdict-shell -h "hive2://hostname:port/schema;key1=value1;key2=value2;..." -u username -p password
 
 
-Note that parameters are delimited using semicolons (:code:`;`). The connection string is quoted since the semicolons have special meaning in bash. The user name and password can be passed in the connection string as parameters, too.
+Note that parameters are delimited using semicolons (:code:`;`).
+The connection string is quoted since the semicolons have special meaning in bash.
+The user name and password can be passed in the connection string as parameters, too.
 
-Verdict supports the Kerberos connection. For this, add :code:`principal=user/host@domain` as one of those key-values pairs.
+Verdict supports the Kerberos connection.
+For this, add :code:`principal=user/host@domain` as one of those key-values pairs.
 
-After :code:`veeline` launches, you can issue regular SQL queries as follows::
+After :code:`verdict-shell` launches, you can issue regular SQL queries as follows::
 
     verdict:Apache Hive> show databases;
 
@@ -165,12 +177,14 @@ Verdict-on-Redshift
 
 Type the following command in terminal to launch :code:`veeline` that connects to Amazon Redshift::
 
-    $ veeline/bin/veeline -h "redshift://endpoint:port/schema;key1=value1;key2=value2;..." -u username -p password
+    $ /bin/verdict-shell -h "redshift://endpoint:port/schema;key1=value1;key2=value2;..." -u username -p password
 
 
-Note that parameters are delimited using semicolons (:code:`;`). The connection string is quoted since the semicolons have special meaning in bash. The user name and password can be passed in the connection string as parameters, too.
+Note that parameters are delimited using semicolons (:code:`;`).
+The connection string is quoted since the semicolons have special meaning in bash.
+The user name and password can be passed in the connection string as parameters, too.
 
-After :code:`veeline` launches, you can issue regular SQL queries as follows::
+After :code:`verdict-shell` launches, you can issue regular SQL queries as follows::
 
     // In Redshift, this displays the schemas in the database to which you are connected
     verdict:PostgreSQL> show databases;
@@ -182,13 +196,16 @@ After :code:`veeline` launches, you can issue regular SQL queries as follows::
 
     verdict:PostgreSQL> !quit
     
-The `search path <http://docs.aws.amazon.com/redshift/latest/dg/r_search_path.html>`_ can be set by :code:`use schema_name;` statement. Currently, only a single schema name can be set for the search path using the :code:`use` statement.
+The `search path <http://docs.aws.amazon.com/redshift/latest/dg/r_search_path.html>`_ can be set by :code:`use schema_name;` statement.
+Currently, only a single schema name can be set for the search path using the :code:`use` statement.
 
 
-Notes on using :code:`veeline`
+Notes on using :code:`verdict-shell`
 *********************************
 
-:code:`veeline` makes a JDBC connection to the database systems that Verdict work on top of (e.g., Impala or Hive). For this, it uses the JDBC drivers stored in the :code:`lib` folder. Our code ships by default with the Cloudera's Impala and Hive JDBC drivers (jar files). However, if these drivers are not compatible with your environment, you can put the compatible JDBC drivers in the :code:`lib` folder after deleting existing ones.
+:code:`verdict-shell` makes a JDBC connection to the database systems that Verdict work on top of (e.g., Impala or Hive).
+For this, it uses the JDBC drivers stored in the :code:`jdbc_jars` folder.
+For your environment, you should put the compatible JDBC drivers in the :code:`jdbc_jars` folder after deleting existing ones.
 
 
 What's Next
